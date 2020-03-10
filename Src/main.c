@@ -115,12 +115,12 @@ int main(void)
 	
   canFilterConfig.FilterNumber = 0;	/*!< Specifies the filter which will be initialized. 
                                        This parameter must be a number between Min_Data = 0 and Max_Data = 13. */
-  canFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;	//CAN_FILTERMODE_IDLIST or CAN_FILTERMODE_IDMASK
+  canFilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;	//CAN_FILTERMODE_IDLIST or CAN_FILTERMODE_IDMASK
   canFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT;	//CAN_FILTERSCALE_16BIT or CAN_FILTERSCALE_32BIT 
-  canFilterConfig.FilterIdHigh = 0x00D0 << 5;	// Идентификатор фильтра №1
-  canFilterConfig.FilterIdLow = 0x00C0 << 5;	// Идентификатор фильтра №2
-  canFilterConfig.FilterMaskIdHigh = 0x00F0 << 5;	// Маска фильтра №1
-  canFilterConfig.FilterMaskIdLow = 0x00F8 << 5;	// Маска фильтра №2
+  canFilterConfig.FilterIdHigh = 0x00C5 << 5;	// Идентификатор фильтра №1
+  canFilterConfig.FilterIdLow = 0x00CF << 5;	// Идентификатор фильтра №2
+  canFilterConfig.FilterMaskIdHigh = 0x00D1 << 5;	// Маска фильтра №1
+  canFilterConfig.FilterMaskIdLow = 0x00DF << 5;	// Маска фильтра №2
   canFilterConfig.FilterFIFOAssignment = CAN_FIFO0;
   canFilterConfig.FilterActivation = ENABLE;
   canFilterConfig.BankNumber = 1;	/*!< Select the start slave bank filter
