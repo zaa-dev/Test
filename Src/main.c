@@ -69,7 +69,7 @@ void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* hcan)
 {
 	if (HAL_CAN_Receive_IT(hcan, CAN_FIFO0) != HAL_OK)
 	{
-		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+		//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
 	}
 	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
 	__HAL_CAN_ENABLE_IT(hcan, CAN_IT_FOV0 | CAN_IT_FMP0);
@@ -113,16 +113,18 @@ int main(void)
   MX_CAN_Init();
   /* USER CODE BEGIN 2 */
 	
-  canFilterConfig.FilterNumber = 0;
-  canFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
-  canFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
-  canFilterConfig.FilterIdHigh = 0x0000;
-  canFilterConfig.FilterIdLow = 0x0000;
-  canFilterConfig.FilterMaskIdHigh = 0x0000 << 5;
-  canFilterConfig.FilterMaskIdLow = 0x0000;
+  canFilterConfig.FilterNumber = 0;	/*!< Specifies the filter which will be initialized. 
+                                       This parameter must be a number between Min_Data = 0 and Max_Data = 13. */
+  canFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;	//CAN_FILTERMODE_IDLIST or CAN_FILTERMODE_IDMASK
+  canFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT;	//CAN_FILTERSCALE_16BIT or CAN_FILTERSCALE_32BIT 
+  canFilterConfig.FilterIdHigh = 0x00D0 << 5;	// Идентификатор фильтра №1
+  canFilterConfig.FilterIdLow = 0x00C0 << 5;	// Идентификатор фильтра №2
+  canFilterConfig.FilterMaskIdHigh = 0x00F0 << 5;	// Маска фильтра №1
+  canFilterConfig.FilterMaskIdLow = 0x00F8 << 5;	// Маска фильтра №2
   canFilterConfig.FilterFIFOAssignment = CAN_FIFO0;
   canFilterConfig.FilterActivation = ENABLE;
-  canFilterConfig.BankNumber = 1;
+  canFilterConfig.BankNumber = 1;	/*!< Select the start slave bank filter
+                                       This parameter must be a number between Min_Data = 0 and Max_Data = 28. */ 
 	HAL_CAN_ConfigFilter(&hcan, &canFilterConfig);
 	HAL_CAN_Receive_IT(&hcan, CAN_FIFO0);
   /* USER CODE END 2 */
@@ -130,7 +132,7 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	
-	TxMessage.StdId = 0x7FF;             // ??????? ????
+	TxMessage.StdId = 0x0C0;             // ??????? ????
 
 	TxMessage.ExtId = 0x00;                          // ??????????? ??????? ????????? ??? ??????
 
@@ -149,10 +151,12 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-		HAL_Delay(500);
+		HAL_Delay(1000);
 		HAL_CAN_Transmit(&hcan, 100);
 		HAL_Delay(100);
 		//HAL_CAN_Receive_IT(&hcan, CAN_FIFO0);
+		if (TxMessage.StdId < 0x7FF)
+			TxMessage.StdId++;
 		TxMessage.Data[0]++;
   }
   /* USER CODE END 3 */
