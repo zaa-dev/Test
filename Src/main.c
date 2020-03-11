@@ -61,7 +61,8 @@ static void MX_CAN_Init(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-
+uint16_t txbuf[4] = {0x00CF, 0x00DF, 0x00C5, 0x00D1};
+uint8_t rx_buf[8][8] = {0};
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -72,6 +73,10 @@ void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* hcan)
 		//HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
 	}
 	HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
+	for (uint8_t i = 0; i < RxMessage.DLC; i++)
+	{
+		rx_buf[RxMessage.FMI][i] = RxMessage.Data[i];
+	}
 	__HAL_CAN_ENABLE_IT(hcan, CAN_IT_FOV0 | CAN_IT_FMP0);
 	//HAL_CAN_Receive_IT(hcan, CAN_FIFO0);
 }
@@ -117,22 +122,37 @@ int main(void)
                                        This parameter must be a number between Min_Data = 0 and Max_Data = 13. */
   canFilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;	//CAN_FILTERMODE_IDLIST or CAN_FILTERMODE_IDMASK
   canFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT;	//CAN_FILTERSCALE_16BIT or CAN_FILTERSCALE_32BIT 
-  canFilterConfig.FilterIdHigh = 0x00C5 << 5;	// Идентификатор фильтра №1
-  canFilterConfig.FilterIdLow = 0x00CF << 5;	// Идентификатор фильтра №2
-  canFilterConfig.FilterMaskIdHigh = 0x00D1 << 5;	// Маска фильтра №1
-  canFilterConfig.FilterMaskIdLow = 0x00DF << 5;	// Маска фильтра №2
+  canFilterConfig.FilterIdHigh = 0x00C1 << 5;	// Идентификатор №1
+  canFilterConfig.FilterIdLow = 0x00C2 << 5;	// Идентификатор №2
+  canFilterConfig.FilterMaskIdHigh = 0x00C3 << 5;	// Идентификатор №3
+  canFilterConfig.FilterMaskIdLow = 0x00C4 << 5;	// Идентификатор №4
   canFilterConfig.FilterFIFOAssignment = CAN_FIFO0;
   canFilterConfig.FilterActivation = ENABLE;
-  canFilterConfig.BankNumber = 1;	/*!< Select the start slave bank filter
+  /*canFilterConfig.BankNumber = 0;*/	/*!< Select the start slave bank filter
                                        This parameter must be a number between Min_Data = 0 and Max_Data = 28. */ 
 	HAL_CAN_ConfigFilter(&hcan, &canFilterConfig);
+	
+	canFilterConfig.FilterNumber = 1;	/*!< Specifies the filter which will be initialized. 
+                                       This parameter must be a number between Min_Data = 0 and Max_Data = 13. */
+  canFilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;	//CAN_FILTERMODE_IDLIST or CAN_FILTERMODE_IDMASK
+  canFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT;	//CAN_FILTERSCALE_16BIT or CAN_FILTERSCALE_32BIT 
+  canFilterConfig.FilterIdHigh = 0x00D1 << 5;	// Идентификатор №1
+  canFilterConfig.FilterIdLow = 0x00D2 << 5;	// Идентификатор №2
+  canFilterConfig.FilterMaskIdHigh = 0x00D3 << 5;	// Идентификатор №3
+  canFilterConfig.FilterMaskIdLow = 0x00D4 << 5;	// Идентификатор №4
+  canFilterConfig.FilterFIFOAssignment = CAN_FIFO0;
+  canFilterConfig.FilterActivation = ENABLE;
+  /*canFilterConfig.BankNumber = 0;*/	/*!< Select the start slave bank filter
+                                       This parameter must be a number between Min_Data = 0 and Max_Data = 28. */ 
+	HAL_CAN_ConfigFilter(&hcan, &canFilterConfig);
+	
 	HAL_CAN_Receive_IT(&hcan, CAN_FIFO0);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	
-	TxMessage.StdId = 0x0C0;             // ??????? ????
+	//uint8_t i = 0;
+	TxMessage.StdId = 0x0BF;             // ??????? ????
 
 	TxMessage.ExtId = 0x00;                          // ??????????? ??????? ????????? ??? ??????
 
@@ -151,7 +171,7 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-		HAL_Delay(1000);
+		HAL_Delay(3000);
 		HAL_CAN_Transmit(&hcan, 100);
 		HAL_Delay(100);
 		//HAL_CAN_Receive_IT(&hcan, CAN_FIFO0);
@@ -219,13 +239,13 @@ static void MX_CAN_Init(void)
 
   hcan.Instance = CAN1;
   hcan.Init.Prescaler = 9;
-  hcan.Init.Mode = CAN_MODE_SILENT_LOOPBACK;
+  hcan.Init.Mode = CAN_MODE_NORMAL ;
   hcan.Init.SJW = CAN_SJW_1TQ;
   hcan.Init.BS1 = CAN_BS1_13TQ;
   hcan.Init.BS2 = CAN_BS2_2TQ;
   hcan.Init.TTCM = DISABLE;
   hcan.Init.ABOM = DISABLE;
-  hcan.Init.AWUM = DISABLE;
+  hcan.Init.AWUM = ENABLE;
   hcan.Init.NART = ENABLE;
   hcan.Init.RFLM = DISABLE;
   hcan.Init.TXFP = DISABLE;

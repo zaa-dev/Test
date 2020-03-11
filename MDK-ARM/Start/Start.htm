@@ -3,7 +3,7 @@
 <title>Static Call Graph - [Start\Start.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image Start\Start.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Tue Mar 10 15:07:30 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Mar 11 12:31:11 2020
 <BR><P>
 <H3>Maximum Stack Usage =        136 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -264,7 +264,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[3d]"></a>HAL_CAN_IRQHandler</STRONG> (Thumb, 548 bytes, Stack size 24 bytes, stm32f1xx_hal_can.o(i.HAL_CAN_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = HAL_CAN_IRQHandler &rArr; CAN_Receive_IT &rArr; HAL_CAN_RxCpltCallback &rArr; HAL_CAN_Receive_IT
+<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = HAL_CAN_IRQHandler &rArr; CAN_Receive_IT &rArr; HAL_CAN_RxCpltCallback &rArr; HAL_CAN_Receive_IT
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_ErrorCallback
 <LI><a href="#[3b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Receive_IT
@@ -300,8 +300,8 @@ Global Symbols
 <LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_RxCpltCallback
 </UL>
 
-<P><STRONG><a name="[3c]"></a>HAL_CAN_RxCpltCallback</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, main.o(i.HAL_CAN_RxCpltCallback))
-<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = HAL_CAN_RxCpltCallback &rArr; HAL_CAN_Receive_IT
+<P><STRONG><a name="[3c]"></a>HAL_CAN_RxCpltCallback</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, main.o(i.HAL_CAN_RxCpltCallback))
+<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = HAL_CAN_RxCpltCallback &rArr; HAL_CAN_Receive_IT
 </UL>
 <BR>[Calls]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_TogglePin
 <LI><a href="#[46]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_Receive_IT
@@ -509,14 +509,14 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(.text)
 </UL>
 <P><STRONG><a name="[1d]"></a>USB_HP_CAN1_TX_IRQHandler</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f1xx_it.o(i.USB_HP_CAN1_TX_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = USB_HP_CAN1_TX_IRQHandler &rArr; HAL_CAN_IRQHandler &rArr; CAN_Receive_IT &rArr; HAL_CAN_RxCpltCallback &rArr; HAL_CAN_Receive_IT
+<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = USB_HP_CAN1_TX_IRQHandler &rArr; HAL_CAN_IRQHandler &rArr; CAN_Receive_IT &rArr; HAL_CAN_RxCpltCallback &rArr; HAL_CAN_Receive_IT
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_IRQHandler
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
 <P><STRONG><a name="[1e]"></a>USB_LP_CAN1_RX0_IRQHandler</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f1xx_it.o(i.USB_LP_CAN1_RX0_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = USB_LP_CAN1_RX0_IRQHandler &rArr; HAL_CAN_IRQHandler &rArr; CAN_Receive_IT &rArr; HAL_CAN_RxCpltCallback &rArr; HAL_CAN_Receive_IT
+<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = USB_LP_CAN1_RX0_IRQHandler &rArr; HAL_CAN_IRQHandler &rArr; CAN_Receive_IT &rArr; HAL_CAN_RxCpltCallback &rArr; HAL_CAN_Receive_IT
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_IRQHandler
 </UL>
@@ -535,7 +535,7 @@ Global Symbols
 
 <P><STRONG><a name="[66]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[35]"></a>main</STRONG> (Thumb, 162 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[35]"></a>main</STRONG> (Thumb, 204 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = main &rArr; SystemClock_Config &rArr; HAL_RCC_ClockConfig &rArr; HAL_InitTick &rArr; HAL_NVIC_SetPriority
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Init
@@ -552,7 +552,7 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[55]"></a>MX_CAN_Init</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, main.o(i.MX_CAN_Init))
+<P><STRONG><a name="[55]"></a>MX_CAN_Init</STRONG> (Thumb, 56 bytes, Stack size 8 bytes, main.o(i.MX_CAN_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = MX_CAN_Init &rArr; HAL_CAN_Init &rArr; HAL_CAN_MspInit &rArr; HAL_GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[40]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_Init
@@ -570,7 +570,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[3b]"></a>CAN_Receive_IT</STRONG> (Thumb, 294 bytes, Stack size 8 bytes, stm32f1xx_hal_can.o(i.CAN_Receive_IT))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = CAN_Receive_IT &rArr; HAL_CAN_RxCpltCallback &rArr; HAL_CAN_Receive_IT
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = CAN_Receive_IT &rArr; HAL_CAN_RxCpltCallback &rArr; HAL_CAN_Receive_IT
 </UL>
 <BR>[Calls]<UL><LI><a href="#[3c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_RxCpltCallback
 </UL>

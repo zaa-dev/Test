@@ -170,7 +170,7 @@ typedef struct
                              This parameter must be a number between Min_Data = 0 and Max_Data = 0xFF */
 
   uint32_t FMI;         /*!< Specifies the index of the filter the message stored in the mailbox passes through.
-                             This parameter must be a number between Min_Data = 0 and Max_Data = 0xFF */
+                             This parameter must be a number between Min_Data = 0 and Max_Data = 0xFF */    
 
   uint32_t FIFONumber;  /*!< Specifies the receive FIFO number.
                              This parameter can be CAN_FIFO0 or CAN_FIFO1 */
